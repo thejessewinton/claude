@@ -7,7 +7,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 export const anthropicRouter = createTRPCRouter({
   prompt: publicProcedure
     .input(z.object({ prompt: z.string() }))
-    .mutation(async ({ input }) => {
+    .query(async function* ({ input }) {
       const params: Anthropic.MessageCreateParams = {
         max_tokens: 1024,
         messages: [{ role: "user", content: input.prompt }],
@@ -17,9 +17,10 @@ export const anthropicRouter = createTRPCRouter({
 
       const msg = anthropic.messages.stream(params);
 
-      for await (const message of msg) {
-        return message.type === "message_stop" ? message : message;
-      }
-      return await msg.finalMessage();
+      return msg.toReadableStream();
+
+      // for await (const message of msg) {
+      //   return message;
+      // }
     }),
 });
