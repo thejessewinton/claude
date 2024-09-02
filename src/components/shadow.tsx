@@ -23,7 +23,7 @@ export const Shadow = () => {
       const maxDistance = Math.sqrt(
         Math.pow(width / 2, 2) + Math.pow(height / 2, 2),
       );
-      const newOpacity = 1 - Math.min(distance / maxDistance);
+      const newOpacity = Math.max(0, 1 - Math.min(distance / maxDistance));
 
       setOpacity(newOpacity);
     };

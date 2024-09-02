@@ -4,7 +4,8 @@ import { useState } from "react";
 import { api } from "~/trpc/react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "./button";
+import { Button } from "./ui/button";
+import { TextArea } from "./ui/textarea";
 
 type FormValues = { prompt: string };
 
@@ -27,10 +28,11 @@ export const ClaudeForm = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          className="text-neutral-950"
+    <div className="flex w-96 flex-col gap-8">
+      <h1 className="text-2xl">Interact with Claude</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <TextArea
+          className="w-full text-neutral-950"
           type="text"
           {...register("prompt")}
         />
@@ -45,7 +47,7 @@ export const ClaudeForm = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             exit={{ height: 0 }}
             key={"container"}
-            className="max-w-lg break-words"
+            className="w-full break-words"
           >
             {response}
           </motion.div>
