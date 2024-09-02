@@ -1,10 +1,10 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { useLocalStorage } from "~/app/hooks/use-local-storage";
+import { useGlobalStore } from "~/state/global";
 
 export const Drawer = () => {
-  const [isPinned, setIsPinned] = useLocalStorage("isPinned", "false");
+  const { pinned, setPinned } = useGlobalStore();
   const variants: Variants = {
     collapsed: {
       transform: "translateX(-15%)",
@@ -18,7 +18,7 @@ export const Drawer = () => {
     },
   };
 
-  const defaultVariant = isPinned === "true" ? "expanded" : "collapsed";
+  const defaultVariant = pinned === "true" ? "expanded" : "collapsed";
 
   return (
     <motion.div
@@ -34,9 +34,7 @@ export const Drawer = () => {
         duration: 0.2,
       }}
     >
-      <button
-        onClick={() => setIsPinned(isPinned === "true" ? "false" : "true")}
-      >
+      <button onClick={() => setPinned(pinned === "false" ? "true" : "false")}>
         Pin sidebar
       </button>
       <div className="flex flex-col gap-8"></div>
