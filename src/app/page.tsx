@@ -1,6 +1,6 @@
-import { Drawer } from "~/components/sidebar/drawer";
+import { Drawer } from "~/components/drawer";
 import { ClaudeForm } from "~/components/form";
-import { Shadow } from "~/components/sidebar/shadow";
+import { Shadow } from "~/components/shadow";
 import { HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
