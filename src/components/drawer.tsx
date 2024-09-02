@@ -1,10 +1,11 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { useLocalStorage } from "~/app/hooks/use-local-storage";
 import { useGlobalStore } from "~/state/global";
 
 export const Drawer = () => {
-  const { pinned, setPinned } = useGlobalStore();
+  const [pinned, setPinned] = useLocalStorage("pinned", "false");
   const variants: Variants = {
     collapsed: {
       transform: "translateX(-15%)",
