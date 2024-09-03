@@ -17,7 +17,7 @@ export const Drawer = () => {
     });
   };
 
-  const variants: Variants = {
+  const variants = {
     collapsed: {
       transform: "translateX(-75%)",
       opacity: 0,
@@ -28,9 +28,9 @@ export const Drawer = () => {
       opacity: 1,
       filter: "blur(0px)",
     },
-  };
+  } as const satisfies Variants;
 
-  const defaultVariant = pinned ? "pinned" : "collapsed";
+  const defaultVariant: keyof typeof variants = pinned ? "pinned" : "collapsed";
 
   return (
     <motion.nav
