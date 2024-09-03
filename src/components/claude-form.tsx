@@ -3,23 +3,31 @@
 import { useState } from "react";
 import { api } from "~/trpc/react";
 import { useForm } from "react-hook-form";
-import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
 import { TextArea } from "./ui/textarea";
+import { useGlobalStore } from "~/state/global";
+import { Spinner } from "./ui/spinner";
 
 type FormValues = { prompt: string };
 
 export const ClaudeForm = () => {
+  const { responseIsLoading, setResponseIsLoading } = useGlobalStore((s) => s);
   const [response, setResponse] = useState("");
   const { handleSubmit, register, reset } = useForm<FormValues>();
 
   const { mutateAsync } = api.anthropic.prompt.useMutation({
+    onMutate: () => {
+      setResponseIsLoading(true);
+    },
     onSuccess: async (data) => {
       reset();
       setResponse("");
       for await (const val of data) {
         setResponse((prev) => prev + val);
       }
+    },
+    onSettled: () => {
+      setResponseIsLoading(false);
     },
   });
 
@@ -36,23 +44,12 @@ export const ClaudeForm = () => {
           type="text"
           {...register("prompt")}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          {responseIsLoading ? <Spinner /> : "Submit"}
+        </Button>
       </form>
-      <AnimatePresence>
-        {response ? (
-          <motion.div
-            style={{ overflow: "hidden" }}
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            exit={{ height: 0 }}
-            key={"container"}
-            className="w-full break-words"
-          >
-            {response}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+
+      <div className="w-full overflow-hidden break-words">{response}</div>
     </div>
   );
 };

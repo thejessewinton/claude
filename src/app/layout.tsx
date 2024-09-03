@@ -4,7 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { GlobalProvider } from "~/providers/global";
+import { GlobalProvider } from "~/state/global";
 import { cookies } from "next/headers";
 
 export const metadata: Metadata = {

@@ -8,12 +8,16 @@ type GlobalStateProps = {
 };
 
 type GlobalState = {
+  responseIsLoading: boolean;
+  setResponseIsLoading: (loading: boolean) => void;
   togglePinned: () => void;
 } & GlobalStateProps;
 
 const createGlobalStore = (initProps: GlobalStateProps) => {
   return createStore<GlobalState>((set, get) => ({
     ...initProps,
+    responseIsLoading: false,
+    setResponseIsLoading: (loading) => set({ responseIsLoading: loading }),
     togglePinned: () => set({ pinned: !get().pinned }),
   }));
 };
@@ -22,11 +26,13 @@ type GlobalStore = ReturnType<typeof createGlobalStore>;
 
 const GlobalContext = createContext<GlobalStore | null>(null);
 
-export function useGlobalStore<T>(selector: (state: GlobalState) => T): T {
+export const useGlobalStore = <T extends GlobalState>(
+  selector: (state: GlobalState) => T,
+) => {
   const store = useContext(GlobalContext);
   if (!store) throw new Error("Missing GlobalProvider in the tree");
   return useStore(store, selector);
-}
+};
 
 export const GlobalProvider = ({
   children,

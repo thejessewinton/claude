@@ -13,8 +13,8 @@ export const Shadow = () => {
       const { left, top, width, height } =
         shadowRef.current.getBoundingClientRect();
 
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
+      const centerX = left + width / 4;
+      const centerY = top + height / 4;
 
       const distance = Math.sqrt(
         Math.pow(centerX - e.clientX, 2) + Math.pow(centerY - e.clientY, 2),
@@ -41,7 +41,7 @@ export const Shadow = () => {
         opacity,
       }}
       ref={shadowRef}
-      className="fixed inset-0 w-96 bg-gradient-to-r from-black/30 to-transparent to-80%"
+      className="fixed inset-0 w-[28rem] bg-gradient-to-r from-black/50 to-transparent to-80%"
     />
   );
 };

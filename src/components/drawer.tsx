@@ -4,7 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import { setCookie } from "typescript-cookie";
 
 import { classNames } from "~/utils/core";
-import { useGlobalStore } from "~/providers/global";
+import { useGlobalStore } from "~/state/global";
 
 export const Drawer = () => {
   const { pinned, togglePinned } = useGlobalStore((s) => s);
@@ -18,8 +18,8 @@ export const Drawer = () => {
   };
 
   const variants = {
-    collapsed: {
-      transform: "translateX(-75%)",
+    unpinned: {
+      transform: "translateX(-15%)",
       opacity: 0,
       filter: "blur(2px)",
     },
@@ -30,14 +30,14 @@ export const Drawer = () => {
     },
   } as const satisfies Variants;
 
-  const defaultVariant: keyof typeof variants = pinned ? "pinned" : "collapsed";
+  const defaultVariant: keyof typeof variants = pinned ? "pinned" : "unpinned";
 
   return (
     <motion.nav
       className={classNames(
-        "fixed inset-0 z-[100] w-72 bg-neutral-950 p-8 backdrop-blur-md",
+        "fixed inset-0 z-[100] w-72 bg-stone-900 p-8 backdrop-blur-md",
         {
-          "bottom-1 left-1 top-1 rounded-xl border border-neutral-800 shadow-lg shadow-black/20":
+          "bottom-1 left-1 top-1 rounded-xl border border-stone-700 shadow-lg shadow-black/20":
             !pinned,
         },
       )}
