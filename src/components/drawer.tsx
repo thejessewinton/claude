@@ -11,7 +11,10 @@ export const Drawer = () => {
 
   const handlePinSidebar = () => {
     togglePinned();
-    setCookie("user-sidebar-pinned", !pinned);
+    setCookie("user-sidebar-pinned", !pinned, {
+      sameSite: "Lax",
+      expires: 365,
+    });
   };
 
   const variants: Variants = {
