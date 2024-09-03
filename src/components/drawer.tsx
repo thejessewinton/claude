@@ -1,32 +1,46 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { useLocalStorage } from "~/app/hooks/use-local-storage";
-import { useGlobalStore } from "~/state/global";
+import { setCookie } from "typescript-cookie";
+
+import { classNames } from "~/utils/core";
+import { useGlobalStore } from "~/providers/global";
 
 export const Drawer = () => {
-  const [pinned, setPinned] = useLocalStorage("pinned", "false");
+  const { pinned, togglePinned } = useGlobalStore((s) => s);
+
+  const handlePinSidebar = () => {
+    togglePinned();
+    setCookie("user-sidebar-pinned", !pinned);
+  };
+
   const variants: Variants = {
     collapsed: {
-      transform: "translateX(-15%)",
+      transform: "translateX(-75%)",
       opacity: 0,
       filter: "blur(2px)",
     },
-    expanded: {
+    pinned: {
       transform: "translateX(0%)",
       opacity: 1,
       filter: "blur(0px)",
     },
   };
 
-  const defaultVariant = pinned === "true" ? "expanded" : "collapsed";
+  const defaultVariant = pinned ? "pinned" : "collapsed";
 
   return (
-    <motion.div
-      className="fixed inset-0 z-[100] m-2 w-72 rounded-xl border border-neutral-800 bg-neutral-950 shadow-lg shadow-black/20 backdrop-blur-md"
+    <motion.nav
+      className={classNames(
+        "fixed inset-0 z-[100] w-72 bg-neutral-950 p-8 backdrop-blur-md",
+        {
+          "bottom-1 left-1 top-1 rounded-xl border border-neutral-800 shadow-lg shadow-black/20":
+            !pinned,
+        },
+      )}
       variants={variants}
       initial={defaultVariant}
-      whileHover="expanded"
+      whileHover="pinned"
       transition={{
         type: "spring",
         stiffness: 400,
@@ -35,10 +49,8 @@ export const Drawer = () => {
         duration: 0.2,
       }}
     >
-      <button onClick={() => setPinned(pinned === "false" ? "true" : "false")}>
-        Pin sidebar
-      </button>
+      <button onClick={handlePinSidebar}>Pin sidebar</button>
       <div className="flex flex-col gap-8"></div>
-    </motion.div>
+    </motion.nav>
   );
 };
