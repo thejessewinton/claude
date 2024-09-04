@@ -38,7 +38,7 @@ export const Drawer = () => {
       className={classNames(
         "fixed inset-0 z-[100] flex w-72 flex-col bg-stone-900 p-8 backdrop-blur-md",
         {
-          "bottom-1 left-1 top-1 rounded-xl border border-stone-700 shadow-lg shadow-black/20":
+          "bottom-1 top-1 rounded-xl border border-stone-700 shadow-lg shadow-black/20":
             !pinned,
         },
       )}
