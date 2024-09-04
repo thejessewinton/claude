@@ -10,7 +10,7 @@ import { Spinner } from "./ui/spinner";
 
 type FormValues = { prompt: string };
 
-export const ClaudeForm = () => {
+export const PromptForm = () => {
   const { responseIsLoading, setResponseIsLoading } = useGlobalStore((s) => s);
   const [response, setResponse] = useState("");
   const { handleSubmit, register, reset } = useForm<FormValues>();

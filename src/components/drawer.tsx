@@ -5,6 +5,7 @@ import { setCookie } from "typescript-cookie";
 
 import { classNames } from "~/utils/core";
 import { useGlobalStore } from "~/state/global";
+import { PushPin, PushPinSlash } from "@phosphor-icons/react";
 
 export const Drawer = () => {
   const { pinned, togglePinned } = useGlobalStore((s) => s);
@@ -35,7 +36,7 @@ export const Drawer = () => {
   return (
     <motion.nav
       className={classNames(
-        "fixed inset-0 z-[100] w-72 bg-stone-900 p-8 backdrop-blur-md",
+        "fixed inset-0 z-[100] flex w-72 flex-col bg-stone-900 p-8 backdrop-blur-md",
         {
           "bottom-1 left-1 top-1 rounded-xl border border-stone-700 shadow-lg shadow-black/20":
             !pinned,
@@ -52,7 +53,9 @@ export const Drawer = () => {
         duration: 0.2,
       }}
     >
-      <button onClick={handlePinSidebar}>Pin sidebar</button>
+      <button onClick={handlePinSidebar} className="ml-auto mr-0">
+        {pinned ? <PushPinSlash /> : <PushPin />}
+      </button>
       <div className="flex flex-col gap-8"></div>
     </motion.nav>
   );

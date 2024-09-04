@@ -1,5 +1,5 @@
 import { Drawer } from "~/components/drawer";
-import { ClaudeForm } from "~/components/claude-form";
+import { PromptForm } from "~/components/prompt-form";
 import { Shadow } from "~/components/shadow";
 import { HydrateClient } from "~/trpc/server";
 
@@ -10,7 +10,7 @@ export default async function Home() {
         <Drawer />
         <Shadow />
 
-        <ClaudeForm />
+        <PromptForm />
       </main>
     </HydrateClient>
   );
