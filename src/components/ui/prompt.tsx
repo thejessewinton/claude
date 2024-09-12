@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { api } from "~/trpc/react";
 import { useForm } from "react-hook-form";
-import { Button } from "./ui/button";
-import { TextArea } from "./ui/textarea";
 import { useGlobalStore } from "~/state/global";
-import { Spinner } from "./ui/spinner";
+import { TextArea } from "~/components/shared/text-area";
+import { Spinner } from "@phosphor-icons/react";
+import { Button } from "~/components/shared/button";
 
 type FormValues = { prompt: string };
 
-export const PromptForm = () => {
+export const Prompt = () => {
   const { responseIsLoading, setResponseIsLoading } = useGlobalStore((s) => s);
   const [response, setResponse] = useState("");
   const { handleSubmit, register, reset } = useForm<FormValues>();

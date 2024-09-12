@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-export const Shadow = () => {
+const useShadow = () => {
   const [opacity, setOpacity] = useState(0);
   const shadowRef = useRef<null | HTMLDivElement>(null);
 
@@ -35,6 +35,11 @@ export const Shadow = () => {
     };
   }, []);
 
+  return { opacity, shadowRef };
+};
+
+export const Shadow = () => {
+  const { shadowRef, opacity } = useShadow();
   return (
     <div
       style={{
