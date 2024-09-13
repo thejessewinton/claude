@@ -35,10 +35,13 @@ export const Sidebar = () => {
   return (
     <motion.nav
       className="z-20 h-screen max-md:pointer-events-none max-md:fixed"
-      animate={{
-        width: pinned ? "18rem" : "4.5rem",
+      animate="width"
+      variants={{
+        width: {
+          width: pinned ? "18rem" : "4.5rem",
+        },
       }}
-      initial={defaultVariant}
+      initial="width"
       transition={{
         type: "spring",
         stiffness: 400,
