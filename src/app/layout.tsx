@@ -19,7 +19,10 @@ export default function RootLayout({
   const isPinned = cookies().get("user-sidebar-pinned")?.value;
 
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} h-screen bg-stone-800 text-white antialiased`}
+    >
       <GlobalProvider pinned={isPinned === "true"}>
         <body>
           <TRPCReactProvider>{children}</TRPCReactProvider>

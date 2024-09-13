@@ -46,7 +46,7 @@ export const Shadow = () => {
         opacity,
       }}
       ref={shadowRef}
-      className="fixed inset-0 w-[28rem] bg-gradient-to-r from-black/50 to-transparent to-80%"
+      className="pointer-events-none fixed inset-0 w-[28rem] bg-gradient-to-r from-black/50 to-transparent to-80%"
     />
   );
 };
